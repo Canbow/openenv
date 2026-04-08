@@ -4,8 +4,8 @@ import requests
 import json
 from openai import OpenAI
 
-# Initialize the OpenAI client (Requires OPENAI_API_KEY environment variable)
-client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+# Initialize the OpenAI client (Requires API_KEY and API_BASE_URL environment variables)
+client = OpenAI(api_key=os.environ["API_KEY"], base_url=os.environ["API_BASE_URL"])
 
 BASE_URL = "http://localhost:8000"
 
@@ -73,8 +73,8 @@ if __name__ == "__main__":
         print("Error: FastAPI server is not running. Start it with: uvicorn main:app --reload")
         exit(1)
         
-    if not os.environ.get("OPENAI_API_KEY"):
-        print("Error: OPENAI_API_KEY environment variable is missing.")
+    if not os.environ.get("API_KEY") or not os.environ.get("API_BASE_URL"):
+        print("Error: API_KEY or API_BASE_URL environment variable is missing.")
         exit(1)
 
     action_schema = get_action_schema()
